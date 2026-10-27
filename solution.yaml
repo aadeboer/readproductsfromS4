@@ -1,0 +1,12 @@
+apiVersion: solution.sap/v1
+kind: Solution
+
+metadata:
+  name: product-master-data-0da8e
+  version: "1.0.0"
+  description: AI agent that enables Sales Representatives to ask natural language questions about product master data from SAP S/4HANA Cloud Public Edition
+
+assets:
+  - ref: ./assets/product-master-agent/asset.yaml
+  - ref: ./assets/sap-s4-ce-product-0003-v3-mcp-server/asset.yaml
+  - ref: ./assets/sap-s4-clfn-product-srv-v1-mcp-server/asset.yaml

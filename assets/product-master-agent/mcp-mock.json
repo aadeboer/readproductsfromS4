@@ -1,0 +1,572 @@
+{
+  "servers": {
+    "sap-s4-ce-product-0003-v3": {
+      "mcp_server_name": "sap-s4-ce-product-0003-v3-mcp-server",
+      "description": "Exposes SAP S/4HANA Cloud Public Edition Product master data operations as MCP tools (CE_PRODUCT_0003 v3)",
+      "tools": {
+        "get_metadata_sap_self": {
+          "description": "Get metadata of the OData service with optional filtering to reduce token consumption.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string",
+                "description": "Optional filter to reduce metadata size"
+              }
+            },
+            "required": []
+          },
+          "mock_response": "<?xml version=\"1.0\" encoding=\"utf-8\"?><edmx:Edmx Version=\"4.0\" xmlns:edmx=\"http://docs.oasis-open.org/odata/ns/edmx\"><edmx:DataServices><Schema Namespace=\"sap.self\" xmlns=\"http://docs.oasis-open.org/odata/ns/edm\"><EntityType Name=\"Product\"><Key><PropertyRef Name=\"Product\"/></Key><Property Name=\"Product\" Type=\"Edm.String\"/><Property Name=\"ProductType\" Type=\"Edm.String\"/><Property Name=\"BaseUnit\" Type=\"Edm.String\"/><Property Name=\"ProductGroup\" Type=\"Edm.String\"/></EntityType></Schema></edmx:DataServices></edmx:Edmx>"
+        },
+        "batch_for_sap_self": {
+          "description": "Execute multiple OData operations in a single batch request.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "requests": {
+                "type": "array",
+                "description": "Array of batch requests"
+              }
+            },
+            "required": ["requests"]
+          },
+          "mock_response": {
+            "responses": []
+          }
+        },
+        "list_product_for_sap_self": {
+          "description": "Retrieve a list of entities from the Product collection.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string",
+                "description": "OData filter expression"
+              },
+              "select": {
+                "type": "string",
+                "description": "Comma-separated list of properties to return"
+              },
+              "orderby": {
+                "type": "string",
+                "description": "Sort order expression"
+              },
+              "top": {
+                "type": "integer",
+                "description": "Maximum number of items to return"
+              },
+              "skip": {
+                "type": "integer",
+                "description": "Number of items to skip"
+              },
+              "expand": {
+                "type": "string",
+                "description": "Navigation properties to expand"
+              },
+              "count": {
+                "type": "boolean",
+                "description": "Include total count in response"
+              }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "value": [
+              {
+                "Product": "P-1001",
+                "ProductType": "FERT",
+                "IndustrySector": "M",
+                "ProductGroup": "L001",
+                "BaseUnit": "EA",
+                "WeightUnit": "KG",
+                "GrossWeight": "2.500",
+                "NetWeight": "2.200",
+                "IsMarkedForDeletion": false,
+                "CreationDate": "/Date(1609459200000)/",
+                "LastChangeDate": "/Date(1704067200000)/"
+              },
+              {
+                "Product": "P-1002",
+                "ProductType": "FERT",
+                "IndustrySector": "M",
+                "ProductGroup": "L001",
+                "BaseUnit": "PC",
+                "WeightUnit": "KG",
+                "GrossWeight": "1.200",
+                "NetWeight": "1.000",
+                "IsMarkedForDeletion": false,
+                "CreationDate": "/Date(1609459200000)/",
+                "LastChangeDate": "/Date(1704067200000)/"
+              }
+            ]
+          }
+        },
+        "get_product_for_sap_self": {
+          "description": "Retrieve a single product entity by its key.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "product": {
+                "type": "string",
+                "description": "Product identifier"
+              },
+              "select": {
+                "type": "string",
+                "description": "Comma-separated list of properties to return"
+              },
+              "expand": {
+                "type": "string",
+                "description": "Navigation properties to expand"
+              }
+            },
+            "required": ["product"]
+          },
+          "mock_response": {
+            "Product": "P-1001",
+            "ProductType": "FERT",
+            "IndustrySector": "M",
+            "ProductGroup": "L001",
+            "BaseUnit": "EA",
+            "WeightUnit": "KG",
+            "GrossWeight": "2.500",
+            "NetWeight": "2.200",
+            "IsMarkedForDeletion": false,
+            "CreationDate": "/Date(1609459200000)/",
+            "LastChangeDate": "/Date(1704067200000)/"
+          }
+        },
+        "list_productbasictext_for_sap_self": {
+          "description": "Retrieve a list of entities from the ProductBasicText collection.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "select": { "type": "string", "description": "Properties to return" },
+              "top": { "type": "integer", "description": "Max items to return" },
+              "skip": { "type": "integer", "description": "Items to skip" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "value": [
+              {
+                "Product": "P-1001",
+                "TextObjectType": "GRUN",
+                "Language": "EN",
+                "LongText": "High-performance industrial pump for liquid transfer applications. Suitable for chemical and pharmaceutical industries."
+              }
+            ]
+          }
+        },
+        "get_productbasictext_for_sap_self": {
+          "description": "Retrieve a single ProductBasicText entity by its key.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "product": { "type": "string", "description": "Product identifier" },
+              "textobjecttype": { "type": "string", "description": "Text object type" },
+              "language": { "type": "string", "description": "Language code" },
+              "select": { "type": "string", "description": "Properties to return" }
+            },
+            "required": ["product", "textobjecttype", "language"]
+          },
+          "mock_response": {
+            "Product": "P-1001",
+            "TextObjectType": "GRUN",
+            "Language": "EN",
+            "LongText": "High-performance industrial pump for liquid transfer applications. Suitable for chemical and pharmaceutical industries."
+          }
+        },
+        "list_productdescription_for_sap_self": {
+          "description": "Retrieve a list of entities from the ProductDescription collection.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "select": { "type": "string", "description": "Properties to return" },
+              "top": { "type": "integer", "description": "Max items to return" },
+              "skip": { "type": "integer", "description": "Items to skip" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "value": [
+              {
+                "Product": "P-1001",
+                "Language": "EN",
+                "ProductDescription": "Industrial Transfer Pump Model X100"
+              },
+              {
+                "Product": "P-1001",
+                "Language": "DE",
+                "ProductDescription": "Industrielle Transferpumpe Modell X100"
+              }
+            ]
+          }
+        },
+        "get_productdescription_for_sap_self": {
+          "description": "Retrieve a single ProductDescription entity by its key.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "product": { "type": "string", "description": "Product identifier" },
+              "language": { "type": "string", "description": "Language code (e.g. EN, DE)" },
+              "select": { "type": "string", "description": "Properties to return" }
+            },
+            "required": ["product", "language"]
+          },
+          "mock_response": {
+            "Product": "P-1001",
+            "Language": "EN",
+            "ProductDescription": "Industrial Transfer Pump Model X100"
+          }
+        },
+        "list_productplant_for_sap_self": {
+          "description": "Retrieve a list of entities from the ProductPlant collection.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "select": { "type": "string", "description": "Properties to return" },
+              "top": { "type": "integer", "description": "Max items to return" },
+              "skip": { "type": "integer", "description": "Items to skip" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "value": [
+              {
+                "Product": "P-1001",
+                "Plant": "1000",
+                "ProductionInvtryManagedLoc": "0001",
+                "ProfileCode": "",
+                "AvailabilityCheckType": "02",
+                "IsMarkedForDeletion": false
+              }
+            ]
+          }
+        },
+        "get_productplant_for_sap_self": {
+          "description": "Retrieve a single ProductPlant entity by its key.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "product": { "type": "string", "description": "Product identifier" },
+              "plant": { "type": "string", "description": "Plant code" },
+              "select": { "type": "string", "description": "Properties to return" }
+            },
+            "required": ["product", "plant"]
+          },
+          "mock_response": {
+            "Product": "P-1001",
+            "Plant": "1000",
+            "ProductionInvtryManagedLoc": "0001",
+            "ProfileCode": "",
+            "AvailabilityCheckType": "02",
+            "IsMarkedForDeletion": false
+          }
+        }
+      }
+    },
+    "sap-s4-clfn-product-srv-v1": {
+      "mcp_server_name": "sap-s4-clfn-product-srv-v1-mcp-server",
+      "description": "Exposes SAP S/4HANA Cloud Public Edition Product Classification operations as MCP tools (API_CLFN_PRODUCT_SRV v1)",
+      "tools": {
+        "get_metadata_api_clfn_product_srv": {
+          "description": "Get metadata of the OData service for product classification.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "Optional metadata filter" }
+            },
+            "required": []
+          },
+          "mock_response": "<?xml version=\"1.0\" encoding=\"utf-8\"?><edmx:Edmx Version=\"4.0\" xmlns:edmx=\"http://docs.oasis-open.org/odata/ns/edmx\"><edmx:DataServices><Schema Namespace=\"api_clfn_product_srv\" xmlns=\"http://docs.oasis-open.org/odata/ns/edm\"><EntityType Name=\"A_ClfnProduct\"><Key><PropertyRef Name=\"Product\"/></Key><Property Name=\"Product\" Type=\"Edm.String\"/><Property Name=\"ClassType\" Type=\"Edm.String\"/></EntityType></Schema></edmx:DataServices></edmx:Edmx>"
+        },
+        "batch_for_api_clfn_product_srv": {
+          "description": "Execute multiple OData operations in a single batch request.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "requests": { "type": "array", "description": "Array of batch requests" }
+            },
+            "required": ["requests"]
+          },
+          "mock_response": { "responses": [] }
+        },
+        "list_a_clfnproduct_for_api_clfn_product_srv": {
+          "description": "Retrieve a list of product classification entities.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "select": { "type": "string", "description": "Properties to return" },
+              "top": { "type": "integer", "description": "Max items to return" },
+              "skip": { "type": "integer", "description": "Items to skip" },
+              "expand": { "type": "string", "description": "Navigation properties to expand" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "value": [
+              {
+                "Product": "P-1001",
+                "ClassType": "001",
+                "ClassAssignmentStatus": "1"
+              }
+            ]
+          }
+        },
+        "get_a_clfnproduct_for_api_clfn_product_srv": {
+          "description": "Retrieve a single product classification entity by key.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "product": { "type": "string", "description": "Product identifier" },
+              "select": { "type": "string", "description": "Properties to return" },
+              "expand": { "type": "string", "description": "Navigation properties to expand" }
+            },
+            "required": ["product"]
+          },
+          "mock_response": {
+            "Product": "P-1001",
+            "ClassType": "001",
+            "ClassAssignmentStatus": "1"
+          }
+        },
+        "list_a_clfnclassforkeydate_for_api_clfn_product_srv": {
+          "description": "Retrieve a list of classification classes valid for a specific key date.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "select": { "type": "string", "description": "Properties to return" },
+              "top": { "type": "integer", "description": "Max items to return" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "value": [
+              {
+                "ClassInternalID": "000000000001",
+                "ClassType": "001",
+                "Class": "PUMPS",
+                "ClassTypeName": "General Class",
+                "ClassName": "Industrial Pumps",
+                "ClassDescription": "Classification class for industrial pump products"
+              }
+            ]
+          }
+        },
+        "get_a_clfnclassforkeydate_for_api_clfn_product_srv": {
+          "description": "Retrieve a single classification class entity by key.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "classinternalid": { "type": "string", "description": "Class internal ID" },
+              "classtype": { "type": "string", "description": "Class type" },
+              "select": { "type": "string", "description": "Properties to return" }
+            },
+            "required": ["classinternalid", "classtype"]
+          },
+          "mock_response": {
+            "ClassInternalID": "000000000001",
+            "ClassType": "001",
+            "Class": "PUMPS",
+            "ClassTypeName": "General Class",
+            "ClassName": "Industrial Pumps",
+            "ClassDescription": "Classification class for industrial pump products"
+          }
+        },
+        "list_a_productcharc_for_api_clfn_product_srv": {
+          "description": "Retrieve a list of product characteristics for classification.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "select": { "type": "string", "description": "Properties to return" },
+              "top": { "type": "integer", "description": "Max items to return" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "value": [
+              {
+                "Product": "P-1001",
+                "ClassType": "001",
+                "CharcInternalID": "0000000001",
+                "Characteristic": "FLOW_RATE",
+                "CharcDescription": "Maximum flow rate in liters per minute"
+              }
+            ]
+          }
+        },
+        "get_a_productcharc_for_api_clfn_product_srv": {
+          "description": "Retrieve a single product characteristic entity by key.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "product": { "type": "string", "description": "Product identifier" },
+              "classtype": { "type": "string", "description": "Class type" },
+              "charcinternalid": { "type": "string", "description": "Characteristic internal ID" },
+              "select": { "type": "string", "description": "Properties to return" }
+            },
+            "required": ["product", "classtype", "charcinternalid"]
+          },
+          "mock_response": {
+            "Product": "P-1001",
+            "ClassType": "001",
+            "CharcInternalID": "0000000001",
+            "Characteristic": "FLOW_RATE",
+            "CharcDescription": "Maximum flow rate in liters per minute"
+          }
+        },
+        "list_a_productclass_for_api_clfn_product_srv": {
+          "description": "Retrieve a list of product class assignments.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "select": { "type": "string", "description": "Properties to return" },
+              "top": { "type": "integer", "description": "Max items to return" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "value": [
+              {
+                "Product": "P-1001",
+                "ClassType": "001",
+                "Class": "PUMPS",
+                "ClassAssignmentStatus": "1"
+              }
+            ]
+          }
+        },
+        "get_a_productclass_for_api_clfn_product_srv": {
+          "description": "Retrieve a single product class assignment by key.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "product": { "type": "string", "description": "Product identifier" },
+              "classtype": { "type": "string", "description": "Class type" },
+              "class": { "type": "string", "description": "Class name" },
+              "select": { "type": "string", "description": "Properties to return" }
+            },
+            "required": ["product", "classtype", "class"]
+          },
+          "mock_response": {
+            "Product": "P-1001",
+            "ClassType": "001",
+            "Class": "PUMPS",
+            "ClassAssignmentStatus": "1"
+          }
+        },
+        "list_a_productclasscharc_for_api_clfn_product_srv": {
+          "description": "Retrieve a list of product class characteristics.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "select": { "type": "string", "description": "Properties to return" },
+              "top": { "type": "integer", "description": "Max items to return" }
+            },
+            "required": []
+          },
+          "mock_response": {
+            "value": [
+              {
+                "Product": "P-1001",
+                "ClassType": "001",
+                "Class": "PUMPS",
+                "CharcInternalID": "0000000001",
+                "Characteristic": "FLOW_RATE"
+              }
+            ]
+          }
+        },
+        "get_a_productclasscharc_for_api_clfn_product_srv": {
+          "description": "Retrieve a single product class characteristic by key.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "product": { "type": "string", "description": "Product identifier" },
+              "classtype": { "type": "string", "description": "Class type" },
+              "class": { "type": "string", "description": "Class name" },
+              "charcinternalid": { "type": "string", "description": "Characteristic internal ID" },
+              "select": { "type": "string", "description": "Properties to return" }
+            },
+            "required": ["product", "classtype", "class", "charcinternalid"]
+          },
+          "mock_response": {
+            "Product": "P-1001",
+            "ClassType": "001",
+            "Class": "PUMPS",
+            "CharcInternalID": "0000000001",
+            "Characteristic": "FLOW_RATE"
+          }
+        },
+        "list_to_productcharc_in_a_clfnproduct_for_api_clfn_product_srv": {
+          "description": "Navigate from A_ClfnProduct to related A_ProductCharc entities.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "product": { "type": "string", "description": "Product identifier" },
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "select": { "type": "string", "description": "Properties to return" },
+              "top": { "type": "integer", "description": "Max items to return" }
+            },
+            "required": ["product"]
+          },
+          "mock_response": {
+            "value": [
+              {
+                "Product": "P-1001",
+                "ClassType": "001",
+                "CharcInternalID": "0000000001",
+                "Characteristic": "FLOW_RATE",
+                "CharcDescription": "Maximum flow rate in liters per minute"
+              }
+            ]
+          }
+        },
+        "list_to_productclass_in_a_clfnproduct_for_api_clfn_product_srv": {
+          "description": "Navigate from A_ClfnProduct to related A_ProductClass entities.",
+          "input_schema": {
+            "type": "object",
+            "properties": {
+              "product": { "type": "string", "description": "Product identifier" },
+              "filter": { "type": "string", "description": "OData filter expression" },
+              "select": { "type": "string", "description": "Properties to return" },
+              "top": { "type": "integer", "description": "Max items to return" }
+            },
+            "required": ["product"]
+          },
+          "mock_response": {
+            "value": [
+              {
+                "Product": "P-1001",
+                "ClassType": "001",
+                "Class": "PUMPS",
+                "ClassAssignmentStatus": "1"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "created_for_agent": "product-master-agent",
+    "mock_mode": true,
+    "deterministic": true,
+    "total_servers": 2,
+    "total_tools": 24,
+    "generated_from": [
+      "assets/sap-s4-ce-product-0003-v3-mcp-server/mcp-translation/translation.json",
+      "assets/sap-s4-clfn-product-srv-v1-mcp-server/mcp-translation/translation.json"
+    ],
+    "generation_date": "2026-10-27"
+  }
+}
